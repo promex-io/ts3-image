@@ -1,13 +1,12 @@
 #!/bin/bash
 
-export TS3SERVER_LICENSE=accept
-
+TS3SERVER_LICENSE=accept
 FN="/teamspeak3.tar.bz2"
 VOLUME="/data"
 
 if [ -z "$SID" ]; then
 	echo "No SID set at runtime. Switching to use hostname..."
-	export SID=`hostname`
+	SID=`hostname`
 fi
 
 TSDIR="$VOLUME/$SID"
@@ -24,9 +23,8 @@ if [ ! -f "$TSDIR/.installed" ]; then
 
 	echo "Installation has been completed. Starting the server."
 
-	ARGS="serveradmin_password=$SID"
+	ARGS="serveradmin_password=`echo $SID | md5sum | cut -d ' ' -f 1`"
 fi
 
 cd $TSDIR && ./ts3server $ARGS
-
 
