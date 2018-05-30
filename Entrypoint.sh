@@ -34,5 +34,10 @@ if [ ! -f "$TSDIR/.installed" ]; then
 	ARGS="serveradmin_password=$SERVERADMIN_PASS"
 fi
 
-cd $TSDIR && ./ts3server $ARGS
+cd $TSDIR
+
+# Run some cleanup
+rm -rf CHANGELOG LICENSE doc/ libts3db_mariadb.so redist/ serverquerydocs/ tsdns/
+
+./ts3server $ARGS
 
