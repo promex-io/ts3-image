@@ -6,8 +6,8 @@ FN="/teamspeak3.tar.bz2"
 VOLUME="/data"
 
 if [ -z "$SID" ]; then
-	echo "No SID set on runtime. Exiting..." 1>&2
-	exit 1
+	echo "No SID set at runtime. Switching to use hostname..."
+	export SID=`hostname`
 fi
 
 TSDIR="$VOLUME/$SID"
