@@ -23,7 +23,15 @@ if [ ! -f "$TSDIR/.installed" ]; then
 
 	echo "Installation has been completed. Starting the server."
 
-	ARGS="serveradmin_password=`echo $SID | md5sum | cut -d ' ' -f 1`"
+	if [ -z "$SERVERADMIN_PASS" ]; then
+		echo "No Serveradmin pass set at runtime. Creating the MD5 sum of \$SID by default."
+
+		export SERVERADMIN_PASS=`echo $SID | md5sum | cut -d ' ' -f 1`
+	fi
+
+	echo "Serveradmin Password: $SERVERADMIN_PASS"
+
+	ARGS="serveradmin_password=$SERVERADMIN_PASS"
 fi
 
 cd $TSDIR && ./ts3server $ARGS
