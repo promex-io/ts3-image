@@ -1,22 +1,20 @@
 #!/bin/bash
 
-TS3SERVER_LICENSE=accept
-FN="/teamspeak3.tar.bz2"
-VOLUME="/data"
-
 if [ -z "$SID" ]; then
 	echo "No SID set at runtime. Switching to use hostname..."
-	SID=`hostname`
+	export SID=`hostname`
 fi
 
-TSDIR="$VOLUME/$SID"
+echo "SID: $SID"
+
+TSDIR="$TS_VOLUME/$SID"
 
 if [ ! -f "$TSDIR/.installed" ]; then
 	echo "The server is not installed yet. Starting installation..."
 
 	mkdir -p $TSDIR
 
-	tar -xf $FN -C $TSDIR --strip-components=1
+	tar -xf $TS_ARCHIVE -C $TSDIR --strip-components=1
 
 	touch $TSDIR/.installed
 	touch $TSDIR/.ts3server_license_accepted
@@ -40,4 +38,3 @@ cd $TSDIR
 rm -rf CHANGELOG LICENSE doc/ libts3db_mariadb.so redist/ serverquerydocs/ tsdns/
 
 ./ts3server $ARGS
-
