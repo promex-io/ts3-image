@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [ -z "$SID" ]; then
 	echo "No SID set at runtime. Switching to use hostname..."
 	export SID=`hostname`
