@@ -4,7 +4,7 @@ if [ -z "$SID" ]; then
 	SID=`hostname`
 fi
 
-TSDIR=/data/$SID
+TSDIR="$TS_VOLUME/$SID"
 
 if [ ! -f "$TSDIR/.installed" ]; then
 	echo "The server is not installed yet. Install it first!" 1>&2
